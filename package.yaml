@@ -33,6 +33,7 @@ default-extensions:
 - MultiWayIf
 - TupleSections
 - MultiParamTypeClasses
+- GeneralizedNewtypeDeriving
 
 dependencies:
 - base >= 4.7 && < 5
@@ -41,6 +42,11 @@ dependencies:
 
 library:
   source-dirs: src
+  exposed-modules:
+    - Linear.Arbitrary
+    - Linear.Matrix.Arbitrary
+    - Linear.Quaternion.Arbitrary
+    - Linear.V3.Arbitrary
 
 tests:
   linear-tests-test:

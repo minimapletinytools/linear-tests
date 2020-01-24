@@ -1,10 +1,11 @@
+
+
 module Linear.Arbitrary (
+  module Linear.Matrix.Arbitrary,
+  module Linear.Quaternion.Arbitrary,
+  module Linear.V3.Arbitrary
 ) where
 
-import           Linear.V3
-import           Test.QuickCheck
-
--- TODO move this into Linear.Arbitrary.V3 to allow others to declare their own instances
--- OR you could always require newtype wrapper.. but that's annoying
-instance (Arbitrary a) => Arbitrary (V3 a) where
-  arbitrary = V3 <$> arbitrary <*> arbitrary <*> arbitrary
+import           Linear.Matrix.Arbitrary
+import           Linear.Quaternion.Arbitrary
+import           Linear.V3.Arbitrary
