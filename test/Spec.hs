@@ -6,6 +6,7 @@ import qualified Linear.Matrix               as M
 import           Linear.Metric
 import qualified Linear.Quaternion           as Q
 import qualified Linear.V3                   as V
+import qualified Linear.Vector               as V
 
 import           Linear.Matrix.Arbitrary
 import           Linear.Quaternion.Arbitrary
@@ -14,11 +15,18 @@ import           Test.QuickCheck
 
 -- V3
 
+prop_V3_UnitV3 :: UnitV3 Double -> Bool
+prop_V3_UnitV3 (UnitV3 v) = nearZero $ norm v - 1
+
 -- Matrix
 -- | tests if InvertibleM33 is implmenented as expected
 -- incidentally, also tests inv33
 prop_Matrix_InvertibleM33 :: InvertibleM33 Double -> Bool
 prop_Matrix_InvertibleM33 (InvertibleM33 m) = nearZero ((m M.!*! M.inv33 m ) - M.identity)
+
+-- | tests if DiagM33 is implemented as expected
+prop_Matrix_DiagM33 :: DiagM33 Double -> UnitV3 Double -> Bool
+prop_Matrix_DiagM33 (DiagM33 m) (UnitV3 v) = nearZero . M.det33 $ V.outer (m M.!* v) v
 
 -- Quaternion
 -- | tests if conjugate property of Quaternion behaves as expected
