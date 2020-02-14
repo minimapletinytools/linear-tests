@@ -1,5 +1,7 @@
 # linear-tests
 
-very WIP don't even bother looking at this yet.
+[WIP] instances are added whenever I find the time. Feel free to submit a PR.
 
-This library is mainly meant for providing `Arbitrary` instances of data types in the `linear` library to be used in other packages (that I'm writing). Stuff will be added here incrementally, and eventually, if I have the time, will add property tests for methods in the `linear` package itself.
+This library provides [QuickCheck](https://hackage.haskell.org/package/QuickCheck) `Arbitrary` instances of data types in the [linear](http://hackage.haskell.org/package/linear) package.
+
+The property tests in this package test both the newly defined `Arbitrary` instaces as well as methods in the linear package itself. It's hard to distinguish between the two types of test so they are all just lumped together.
