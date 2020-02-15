@@ -1,6 +1,7 @@
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module Linear.Quaternion.Arbitrary (
+  CartesianQuaternion(..)
 ) where
 
 import           Linear.Epsilon
@@ -16,3 +17,12 @@ instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (Quaternion a) where
     UnitV3 v <- arbitrary
     r <- arbitrary
     return $ axisAngle v r
+
+-- | Arbitrary instances of this type are restricted to increment of 90 degrees along cartesian axis
+newtype CartesianQuaternion a = CartesianQuaternion { unCartesianQuaternion :: Quaternion a } deriving (Show)
+
+instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (CartesianQuaternion a) where
+  arbitrary = do
+    CartesianUnitV3 v <- arbitrary
+    r <- elements [0, pi/2, pi, 3*pi/2]
+    return . CartesianQuaternion $ axisAngle v r
