@@ -29,11 +29,19 @@ prop_CartesianQuaternion_arbitrary (CartesianQuaternion q) (CartesianUnitV3 v) =
 prop_Quaternion_arbitrary :: (Epsilon a, RealFloat a, Conjugate a) => Q.Quaternion a -> Bool
 prop_Quaternion_arbitrary q = nearZero $ norm q - 1
 
-
 -- | tests for the property `q * conjugate(q) = identity`
 prop_Quaternion_conjugate :: (Epsilon a, RealFloat a, Conjugate a) => Q.Quaternion a -> Bool
 prop_Quaternion_conjugate q = nearZero $ distance (q * conjugate q) (Q.Quaternion 1 (V.V3 0 0 0))
 
+identityQuaternion :: (RealFloat a) => Q.Quaternion a
+identityQuaternion = 1 -- Quaternion 1 (V3 0 0 0)
+
+-- | tests for the property `slerp(identity,q,θ)*u·u = cos θ` where q is a 90 degree rotation
+prop_Quaternion_slerp :: (Epsilon a, RealFloat a, Conjugate a) => UnitV3 a -> UnitV3 a -> a -> Bool
+prop_Quaternion_slerp (UnitV3 axis) (UnitV3 v) r = nearZero $ (sqv `dot` v) - cos r where
+  q = Q.axisAngle axis (pi/2)
+  sq = Q.slerp identityQuaternion q r
+  sqv = Q.rotate sq v
 
 spec :: Spec
 spec = specTyped @Double
@@ -51,3 +59,5 @@ specTyped = do
     describe "Conjugate" $ do
       it "satisfies the property `q * conjugate(q) = identity`" $
         property $ prop_Quaternion_conjugate @a
+    it "satisfies the property `slerp(identity,q,θ)*u·u = cos θ` where q is a 90 degree rotation" $
+      property $ prop_Quaternion_slerp @a
