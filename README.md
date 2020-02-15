@@ -1,5 +1,6 @@
-# linear-tests
+[![CircleCI](https://circleci.com/gh/pdlla/linear-tests.svg?style=svg)](https://circleci.com/gh/pdlla/linear-tests)
 
+# linear-tests
 [WIP] instances are added whenever I find the time. Feel free to submit a PR.
 
 This library provides [QuickCheck](https://hackage.haskell.org/package/QuickCheck) `Arbitrary` instances of data types in the [linear](http://hackage.haskell.org/package/linear) package.
