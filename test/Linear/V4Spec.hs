@@ -1,3 +1,9 @@
+{-# LANGUAGE AllowAmbiguousTypes #-}
+{-# LANGUAGE ExplicitForAll      #-}
+{-# LANGUAGE ScopedTypeVariables #-}
+{-# LANGUAGE TypeApplications    #-}
+
+
 module Linear.V4Spec (
   spec
 ) where
@@ -12,13 +18,16 @@ import           Linear.V4.Arbitrary
 
 
 -- | test for the property `|v| = 1`
-prop_UnitV4_isUnit :: UnitV4 Double -> Bool
+prop_UnitV4_isUnit :: (Epsilon a, Floating a) => UnitV4 a -> Bool
 prop_UnitV4_isUnit (UnitV4 v) = nearZero $ norm v - 1
 
 spec :: Spec
-spec = do
+spec = specTyped @Double
+
+specTyped :: forall a. (Eq a, Show a, Arbitrary a, Epsilon a, Floating a) => Spec
+specTyped = do
   describe "V4" $ do
     describe "Arbitrary" $ do
       describe "UnitV4" $ do
         it "satisfies the property `|v| = 1`" $ do
-          property prop_UnitV4_isUnit
+          property $ prop_UnitV4_isUnit @a
