@@ -10,11 +10,11 @@ import           Linear.V3
 
 import           Test.QuickCheck
 
--- | no restrictions on components by default
+-- | `Arbitrary V3` instances have no restrictions on components
 instance (Arbitrary a) => Arbitrary (V3 a) where
   arbitrary = V3 <$> arbitrary <*> arbitrary <*> arbitrary
 
--- | Arbitrary instances of this type alwas have norm 1
+-- | `Arbitrary UnitV3` instances always have norm 1
 newtype UnitV3 a = UnitV3 {unUnitV3 :: V3 a}  deriving (Show)
 
 instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (UnitV3 a) where

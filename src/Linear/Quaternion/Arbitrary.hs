@@ -4,13 +4,13 @@ module Linear.Quaternion.Arbitrary (
 ) where
 
 import           Linear.Epsilon
-import           Linear.Matrix
+import           Linear.Matrix       ()
 import           Linear.Quaternion
---import           Linear.Metric
 import           Linear.V3.Arbitrary
 
 import           Test.QuickCheck
 
+-- | `Arbitrary Quaternion` instance
 instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (Quaternion a) where
   arbitrary = do
     UnitV3 v <- arbitrary

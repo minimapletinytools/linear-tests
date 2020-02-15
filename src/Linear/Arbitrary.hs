@@ -7,5 +7,5 @@ module Linear.Arbitrary (
 ) where
 
 import           Linear.Matrix.Arbitrary
-import           Linear.Quaternion.Arbitrary
+import           Linear.Quaternion.Arbitrary ()
 import           Linear.V3.Arbitrary
