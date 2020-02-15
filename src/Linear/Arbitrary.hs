@@ -2,7 +2,7 @@
 
 module Linear.Arbitrary (
   module Linear.Matrix.Arbitrary,
-  module Linear.Quaternion.Arbitrary,
+  -- module Linear.Quaternion.Arbitrary,
   module Linear.V3.Arbitrary
 ) where
 
