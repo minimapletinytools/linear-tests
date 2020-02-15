@@ -22,17 +22,6 @@ description:         Please see the README on GitHub at <https://github.com/pdll
 ghc-options:
 - -Wall
 
-default-extensions:
-- InstanceSigs
-- LambdaCase
-- OverloadedStrings
-- FlexibleInstances
-- FlexibleContexts
-- ScopedTypeVariables
-- MultiWayIf
-- TupleSections
-- GeneralizedNewtypeDeriving
-
 dependencies:
 - base >= 4.7 && < 5
 - QuickCheck
