@@ -3,10 +3,15 @@
 module Linear.V3.Arbitrary (
   UnitV3(..)
   , CartesianUnitV3(..)
+  , BasisV3(..)
 ) where
 
+import           Control.Lens      hiding (elements)
+
+import           Linear.Conjugate
 import           Linear.Epsilon
 import           Linear.Metric
+import qualified Linear.Quaternion as Q
 import           Linear.V3
 import           Linear.Vector
 
@@ -29,3 +34,15 @@ newtype CartesianUnitV3 a = CartesianUnitV3 {unCartesianUnitV3 :: V3 a}  derivin
 
 instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (CartesianUnitV3 a) where
   arbitrary = elements $ CartesianUnitV3 <$> [unit _x, unit _y, unit _z, - (unit _x), - (unit _y), - (unit _z)]
+
+-- | `Aribtrary BasisV3` is a orthonormal set of vectors
+newtype BasisV3 a = BasisV3 { unBasisV3 :: (V3 a, V3 a, V3 a) } deriving (Show)
+
+instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (BasisV3 a) where
+  arbitrary = do
+    UnitV3 x <- arbitrary
+    o <- arbitrary `suchThat` (not . nearZero . dot x)
+    let
+      y = signorm $ cross x o
+      z = cross x y
+    return $ BasisV3 (x, y, z)

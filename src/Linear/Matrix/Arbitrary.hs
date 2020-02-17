@@ -3,6 +3,7 @@
 module Linear.Matrix.Arbitrary (
   InvertibleM33(..)
   , DiagM33(..)
+  , InvertibleM44(..)
   , AffineM44(..)
   , InvertibleAffineM44(..)
 ) where
@@ -24,11 +25,7 @@ import           Linear.V4.Arbitrary ()
 newtype InvertibleM33 a = InvertibleM33 { unInvertibleM33 :: M33 a }  deriving (Show)
 
 instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (InvertibleM33 a) where
-  arbitrary = do
-    v1 <- arbitrary `suchThat` (not . nearZero)
-    v2 <- arbitrary `suchThat` (not . nearZero) `suchThat` (not . nearZero . dot v1)
-    v3 <- arbitrary `suchThat` (not . nearZero) `suchThat` (not . nearZero . dot v1) `suchThat` (not . nearZero . dot v2)
-    return . InvertibleM33 $ V3.V3 v1 v2 v3
+  arbitrary = fmap InvertibleM33 $ (V3.V3 <$> arbitrary <*> arbitrary <*> arbitrary) `suchThat` (not . nearZero . det33)
 
 -- | `Arbitrary DiagM33` instances only have non-zero diagonal entries (could still be zero)
 newtype DiagM33 a = DiagM33 { unDiagM33 :: M33 a } deriving (Show)
@@ -42,6 +39,11 @@ instance (Arbitrary a, Num a) => Arbitrary (DiagM33 a) where
       (V3.V3 s1 0 0)
       (V3.V3 0 s2 0)
       (V3.V3 0 0 s3)
+
+newtype InvertibleM44 a = InvertibleM44 { unInvertibleM44 :: M44 a } deriving (Show)
+
+instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (InvertibleM44 a) where
+  arbitrary = fmap InvertibleM44 $ (V4.V4 <$> arbitrary <*> arbitrary <*> arbitrary <*> arbitrary) `suchThat` (not . nearZero . det44)
 
 -- | `Arbitrary AffineM44` instances are affine M44 matrices (i.e. have [0,0,0,1] in last row)
 newtype AffineM44 a = AffineM44 { unAffineM44 :: M44 a } deriving (Show)

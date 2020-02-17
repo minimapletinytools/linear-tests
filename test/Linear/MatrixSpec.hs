@@ -41,6 +41,10 @@ prop_Matrix_DiagM33_isDiagonal = isDiagonal . unDiagM33
 isAffine :: (Epsilon a, Floating a) => M.M44 a -> Bool
 isAffine m44 = nearZero $ view V4._w m44 - V4.V4 0 0 0 1
 
+-- | test the property `m * m^-1 == identity`
+prop_Matrix_InvertibleM44_isInvertible :: (Epsilon a, Floating a) => InvertibleM44 a -> Bool
+prop_Matrix_InvertibleM44_isInvertible (InvertibleM44 m) = nearZero ((m M.!*! M.inv44 m ) - M.identity)
+
 -- | test the property that last row is [0,0,0,1]
 prop_Matrix_AffineM44_isAffine :: (Epsilon a, Floating a) => AffineM44 a -> Bool
 prop_Matrix_AffineM44_isAffine (AffineM44 m44) = isAffine m44
@@ -73,6 +77,9 @@ specTyped = do
             property $ prop_Matrix_DiagM33_isDiagonal @a
     describe "M44" $ do
       describe "Arbitrary" $ do
+        describe "InvertibleM44" $ do
+          it "satifies property `m * m^-1 == identity`" $
+            property $ prop_Matrix_InvertibleM44_isInvertible @a
         describe "AffineM44" $ do
           it "satisfies property [0,0,0,1] in last row" $
             property $ prop_Matrix_AffineM44_isAffine @a
