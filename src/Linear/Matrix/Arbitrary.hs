@@ -12,7 +12,6 @@ import           Control.Lens
 
 import           Linear.Epsilon
 import           Linear.Matrix
-import           Linear.Metric
 import qualified Linear.V3           as V3
 import qualified Linear.V4           as V4
 import           Test.QuickCheck

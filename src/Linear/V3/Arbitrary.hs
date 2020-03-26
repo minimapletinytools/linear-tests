@@ -7,12 +7,8 @@ module Linear.V3.Arbitrary (
   , BasisV3(..)
 ) where
 
-import           Control.Lens      hiding (elements)
-
-import           Linear.Conjugate
 import           Linear.Epsilon
 import           Linear.Metric
-import qualified Linear.Quaternion as Q
 import           Linear.V3
 import           Linear.Vector
 

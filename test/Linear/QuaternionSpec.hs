@@ -33,8 +33,8 @@ prop_Quaternion_arbitrary q = nearZero $ norm q - 1
 prop_Quaternion_conjugate :: (Epsilon a, RealFloat a, Conjugate a) => Q.Quaternion a -> Bool
 prop_Quaternion_conjugate q = nearZero $ distance (q * conjugate q) (Q.Quaternion 1 (V.V3 0 0 0))
 
-identityQuaternion :: (RealFloat a) => Q.Quaternion a
-identityQuaternion = 1 -- Quaternion 1 (V3 0 0 0)
+--identityQuaternion :: (RealFloat a) => Q.Quaternion a
+--identityQuaternion = 1 -- Quaternion 1 (V3 0 0 0)
 
 spec :: Spec
 spec = specTyped @Double
