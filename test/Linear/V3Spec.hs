@@ -17,6 +17,10 @@ import           Linear.Vector
 
 import           Linear.V3.Arbitrary
 
+-- | test for the property `|v| != 0`
+prop_NonZeroV3_isNonZero :: (Epsilon a, Floating a) => NonZeroV3 a -> Bool
+prop_NonZeroV3_isNonZero (NonZeroV3 v) = not . nearZero $ norm v
+
 -- | test for the property `|v| = 1`
 prop_UnitV3_isUnit :: (Epsilon a, Floating a) => UnitV3 a -> Bool
 prop_UnitV3_isUnit (UnitV3 v) = nearZero $ norm v - 1
@@ -53,6 +57,9 @@ specTyped :: forall a. (Eq a, Show a, Arbitrary a, Epsilon a, Floating a) => Spe
 specTyped = do
   describe "V3" $ do
     describe "Arbitrary" $ do
+      describe "NonZeroV3" $ do
+        it "satisfies the property `|v| != 0`" $ do
+          property $ prop_NonZeroV3_isNonZero @a
       describe "UnitV3" $ do
         it "satisfies the property `|v| = 1`" $ do
           property $ prop_UnitV3_isUnit @a

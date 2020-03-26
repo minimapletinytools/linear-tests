@@ -5,6 +5,8 @@ license:             BSD3
 author:              "pdlla"
 maintainer:          "chippermonky@gmail.com"
 copyright:           "2020 pdlla"
+synopsis:            Linear Algebra
+category:            Math, Algebra, Testing
 
 extra-source-files:
 - README.md

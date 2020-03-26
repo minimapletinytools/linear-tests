@@ -1,5 +1,8 @@
 # Changelog for linear-tests
 
+## UNRELEASED
+- Added `NonZeroV3` and `NonZeroV4`
+
 ## 0.1.1 [2020.02.16]
 - Added `InvertibleM33`
 - Added `BasisV3`

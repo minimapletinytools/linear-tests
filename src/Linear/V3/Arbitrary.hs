@@ -2,6 +2,7 @@
 
 module Linear.V3.Arbitrary (
   UnitV3(..)
+  , NonZeroV3(..)
   , CartesianUnitV3(..)
   , BasisV3(..)
 ) where
@@ -20,6 +21,14 @@ import           Test.QuickCheck
 -- | `Arbitrary V3` has no restrictions on components
 instance (Arbitrary a) => Arbitrary (V3 a) where
   arbitrary = V3 <$> arbitrary <*> arbitrary <*> arbitrary
+
+-- | `Arbitrary NonZero` is never the zero vector
+newtype NonZeroV3 a = NonZeroV3 {unNonZeroV3 :: V3 a} deriving (Show)
+
+instance (Arbitrary a, Epsilon a, Floating a) => Arbitrary (NonZeroV3 a) where
+  arbitrary = do
+    v <- arbitrary `suchThat` (not . nearZero)
+    return $ NonZeroV3 v
 
 -- | `Arbitrary UnitV3` always has norm 1
 newtype UnitV3 a = UnitV3 {unUnitV3 :: V3 a}  deriving (Show)
