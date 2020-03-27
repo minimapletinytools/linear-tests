@@ -1,53 +1,28 @@
-version: 2
-
+version: 2.1
 jobs:
   build:
     docker:
       - image: fpco/stack-build:lts
     steps:
       - checkout
-
       - restore_cache:
+          name: Restore Cached Dependencies
           keys:
-            - stack-dependencies-{{ arch }}-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
-            - stack-dependencies-{{ arch }}-{{ checksum "stack.yaml" }}
-
+            - linear-test-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
+            - linear-test-{{ checksum "stack.yaml" }}
       - run:
-          command: stack build --test --bench --only-dependencies -j1
-
+          name: Resolve/Update Dependencies
+          command: stack --no-terminal setup
+      - run:
+          name: Run tests
+          command: stack --no-terminal test
       - save_cache:
-          key: stack-dependencies-{{ arch }}-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
+          name: Cache Dependencies
+          key: linear-test-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
           paths:
-            - ~/.stack
-
-      - run:
-          command: stack build --test --no-run-tests --bench --no-run-benchmarks
-
-      - save_cache:
-          key: stack-work-{{ arch }}-{{ .Revision }}
-          paths:
-            - .stack-work
-
-  test:
-    docker:
-      - image: fpco/stack-build:lts
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - stack-dependencies-{{ arch }}-{{ checksum "stack.yaml" }}-{{ checksum "package.yaml" }}
-            - stack-dependencies-{{ arch }}-{{ checksum "stack.yaml" }}
-      - restore_cache:
-          key: stack-work-{{ arch }}-{{ .Revision }}
-      - run:
-          command: stack test
-
-
-workflows:
-  version: 2
-  build-test:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
+            - "/root/.stack"
+            - ".stack-work"
+      - store_artifacts:
+          # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
+          path: ~/.local/bin/linear-test
+          destination: linear-test
