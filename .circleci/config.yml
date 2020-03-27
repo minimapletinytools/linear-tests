@@ -26,3 +26,5 @@ jobs:
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: ~/.local/bin/linear-test
           destination: linear-test
+
+# [![CircleCI](https://circleci.com/gh/pdlla/linear-tests.svg?style=svg)](https://circleci.com/gh/pdlla/linear-tests)
