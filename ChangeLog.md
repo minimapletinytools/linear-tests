@@ -1,6 +1,6 @@
 # Changelog for linear-tests
 
-## UNRELEASED
+## 0.1.2 [2020.03.27]
 - Added `NonZeroV3` and `NonZeroV4`
 
 ## 0.1.1 [2020.02.16]
