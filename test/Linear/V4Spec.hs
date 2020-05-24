@@ -1,3 +1,9 @@
+{-|
+Module      : Linear.V4Spec
+Description : property tests for 'Linear.V4' and 'Linear.V4.Arbitrary'
+Maintainer  : chippermonky@gmail.com
+-}
+
 {-# LANGUAGE AllowAmbiguousTypes #-}
 {-# LANGUAGE ExplicitForAll      #-}
 {-# LANGUAGE ScopedTypeVariables #-}

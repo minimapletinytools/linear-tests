@@ -1,4 +1,5 @@
 .stack-work/
 linear-tests.cabal
 dist-newstyle
+dist-docs.*
 *~

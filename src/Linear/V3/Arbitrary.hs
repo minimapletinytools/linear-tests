@@ -1,3 +1,9 @@
+{-|
+Module      : Linear.V3.Arbitrary
+Description : 'Arbitrary' instances for 'Linear.V3'
+Maintainer  : chippermonky@gmail.com
+-}
+
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module Linear.V3.Arbitrary (

@@ -1,3 +1,9 @@
+{-|
+Module      : Linear.MatrixSpec
+Description : property tests for 'Linear.Matrix' and 'Linear.Matrix.Arbitrary'
+Maintainer  : chippermonky@gmail.com
+-}
+
 {-# LANGUAGE AllowAmbiguousTypes #-}
 {-# LANGUAGE ExplicitForAll      #-}
 {-# LANGUAGE ScopedTypeVariables #-}

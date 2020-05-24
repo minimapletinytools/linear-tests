@@ -1,3 +1,15 @@
+{-|
+Module      : Linear.Matrix.Arbitrary
+Description : 'Arbitrary' instances for 'Linear.Matrix'
+Maintainer  : chippermonky@gmail.com
+-}
+
+-- |
+-- Module:
+--   Linear.Matrix.Arbitrary
+-- Description:
+--   This module contains 'Arbitrary' instances for 'Linear.Matrix'
+
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module Linear.Matrix.Arbitrary (

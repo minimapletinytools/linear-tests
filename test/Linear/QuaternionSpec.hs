@@ -1,3 +1,9 @@
+{-|
+Module      : Linear.QuaternionSpec
+Description : property tests for 'Linear.Quaternion' and 'Linear.Quaternion.Arbitrary'
+Maintainer  : chippermonky@gmail.com
+-}
+
 {-# LANGUAGE AllowAmbiguousTypes #-}
 {-# LANGUAGE ExplicitForAll      #-}
 {-# LANGUAGE ScopedTypeVariables #-}

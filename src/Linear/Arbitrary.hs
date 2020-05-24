@@ -1,4 +1,8 @@
-
+{-|
+Module      : Linear.Arbitrary
+Description : 'Arbitrary' instances for data types in the linear package
+Maintainer  : chippermonky@gmail.com
+-}
 
 module Linear.Arbitrary (
   module Linear.Matrix.Arbitrary,

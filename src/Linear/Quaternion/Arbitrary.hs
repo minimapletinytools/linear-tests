@@ -1,3 +1,9 @@
+{-|
+Module      : Linear.Quaternion.Arbitrary
+Description : 'Arbitrary' instances for 'Linear.Quaternion'
+Maintainer  : chippermonky@gmail.com
+-}
+
 {-# OPTIONS_GHC -fno-warn-orphans #-}
 
 module Linear.Quaternion.Arbitrary (
